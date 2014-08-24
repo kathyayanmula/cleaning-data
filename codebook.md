@@ -23,7 +23,7 @@ For each record in the dataset it is provided:
 - Its activity label. 
 - An identifier of the subject who carried out the experiment.
 
-### Section 1. #1. Reading data from all the necessary files
+### Section 1. Reading data from all the necessary files
 After setting the source directory for the files, read into tables the data located in
 - features.txt
 - activity_labels.txt
@@ -36,16 +36,16 @@ After setting the source directory for the files, read into tables the data loca
 
 
 
-## Section 2. Combining the data sets.
+### Section 2. Combining the data sets.
 Assign column names and merge to create one data set. 
 
-## Section 3. Reading and merging the activity labels table so as to have descriptive names for activities in the final data set.
+### Section 3. Reading and merging the activity labels table so as to have descriptive names for activities in the final data set.
 
 
-## Section 4. Renaming Variables accordingly.
+### Section 4. Renaming Variables accordingly.
 
 
-## Section 5. Creating an independent tidy data set with the average of each variable for each activity and each subject. 
+### Section 5. Creating an independent tidy data set with the average of each variable for each activity and each subject. 
 
 
-## Section 6. Selecting the required columns for final dataset and creating it.
+### Section 6. Selecting the required columns for final dataset and creating it.
