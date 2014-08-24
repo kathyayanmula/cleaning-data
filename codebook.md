@@ -1,76 +1,51 @@
+## Getting and Cleaning Data Project
 
-trainx - this data table contains training data on x axis data
+Kathyayan Goud Mula
 
-trainy - contains training data on x axis data
+### Description
+Information about the variables, data and transformations used in the course project.
 
-#reading the training data on subject
-trainsub<-read.table('UCI HAR Dataset/train/subject_train.txt') 
+### Source Data
+A full description of the data used in this project can be found at [The UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 
-#reading the test data on x axis data
-testx<-read.table('UCI HAR Dataset/test/X_test.txt') 
+[The source data for this project can be found here.](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 
-#selecting the mean and standard deviation columns
-col<-c(1:6,41:46) 
+### Data Set Information
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
 
-# selecting the mean and standard deviation columns from test data on x axis 
-testx<-testx[,(col)] 
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.
 
-# selecting the mean and standard deviation columns from train data on x axis 
-trainx<-trainx[,(col)] 
+### Attribute Information
+For each record in the dataset it is provided: 
+- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration. 
+- Triaxial Angular velocity from the gyroscope. 
+- A 561-feature vector with time and frequency domain variables. 
+- Its activity label. 
+- An identifier of the subject who carried out the experiment.
 
-#reading the test data on x axis data
-testy<-read.table('UCI HAR Dataset/test/Y_test.txt') 
+### Section 1. #1. Reading data from all the necessary files
+After setting the source directory for the files, read into tables the data located in
+- features.txt
+- activity_labels.txt
+- subject_train.txt
+- x_train.txt
+- y_train.txt
+- subject_test.txt
+- x_test.txt
+- y_test.txt
 
-#reading the test data on subject
-testsub<-read.table('UCI HAR Dataset/test/subject_test.txt') 
 
-#binding all the columns from test datasets 
-test<-cbind(testx,testy,testsub)
 
-#binding all the columns from train datasets 
-train<-cbind(trainx,trainy,trainsub)
+## Section 2. Combining the data sets.
+Assign column names and merge to create one data set. 
 
-#binding the rows from testing and training datasets 
-testandtrain<-rbind(test,train)
+## Section 3. Reading and merging the activity labels table so as to have descriptive names for activities in the final data set.
 
-#renaming the subject and activity columns in the merged data set
-names(testandtrain)[14]<-'subject'
-names(testandtrain)[13]<-'activity'
 
-#renaming the table having the descriptive names of the activities
-labels<-read.table('UCI HAR Dataset/activity_labels.txt',col.names=c('activity','activity_name'))
+## Section 4. Renaming Variables accordingly.
 
-#merging the activity names with the merged test and train dataset
-merged<-merge(testandtrain,labels,by.x='activity',by.y='activity')
 
-#assigning descriptive names to the variables
-names(merged)[2]<-'Time Body Acceleration Mean on X Axis'
-names(merged)[3]<-'Time Body Acceleration Mean on Y Axis'
-names(merged)[4]<-'Time Body Acceleration Mean on Z Axis'
-names(merged)[5]<-'Time Body Acceleration Std on X Axis'
-names(merged)[6]<-'Time Body Acceleration Std on Y Axis'
-names(merged)[7]<-'Time Body Acceleration Std on Z Axis'
-names(merged)[8]<-'Time Body Gravity Mean on X Axis'
-names(merged)[9]<-'Time Body Gravity Mean on Y Axis'
-names(merged)[10]<-'Time Body Gravity Mean on Z Axis'
-names(merged)[11]<-'Time Body Gravity Std on X Axis'
-names(merged)[12]<-'Time Body Gravity Std on Y Axis'
-names(merged)[13]<-'Time Body Gravity Std on Z Axis'
+## Section 5. Creating an independent tidy data set with the average of each variable for each activity and each subject. 
 
-attach(merged)
 
-#reshaping the data so that it shows the mean for all the variables for each activity and subject
-aggdata <-aggregate(merged, by=list(activity_name,subject),FUN=mean, na.rm=TRUE)
-
-#assigning descriptive names to the variables
-names(aggdata)[1]<-'Activity_name'
-names(aggdata)[2]<-'Subject'
-
-#selecting columns to display in the final data set
-col<-c(1:2,4:15)
-
-#filtering the final data set
-final<-aggdata[,(col)]
-
-#writing the final clean data set to working directory
-write.table(final,'final.txt', row.name=FALSE)
+## Section 6. Selecting the required columns for final dataset and creating it.

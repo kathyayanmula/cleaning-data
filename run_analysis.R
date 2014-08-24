@@ -22,6 +22,8 @@ rm(list=ls())
 #set working directory to the location where the UCI HAR Dataset was unzipped
 setwd('C:/Users/goud/Desktop/coursera');
 
+#1. Reading data from all the necessary files
+
 #reading the training data on x axis data
 
 trainx<-read.table('UCI HAR Dataset/train/X_train.txt') 
@@ -50,6 +52,7 @@ testy<-read.table('UCI HAR Dataset/test/Y_test.txt')
 #reading the test data on subject
 testsub<-read.table('UCI HAR Dataset/test/subject_test.txt') 
 
+#2.Combining the data sets
 #binding all the columns from test datasets 
 test<-cbind(testx,testy,testsub)
 
@@ -63,12 +66,14 @@ testandtrain<-rbind(test,train)
 names(testandtrain)[14]<-'subject'
 names(testandtrain)[13]<-'activity'
 
+#3. Reading and merging the activity labels table so as to have descriptive names for activities in the final data set
 #renaming the table having the descriptive names of the activities
 labels<-read.table('UCI HAR Dataset/activity_labels.txt',col.names=c('activity','activity_name'))
 
 #merging the activity names with the merged test and train dataset
 merged<-merge(testandtrain,labels,by.x='activity',by.y='activity')
 
+#4. Renaming Variables accordingly
 #assigning descriptive names to the variables
 names(merged)[2]<-'Time Body Acceleration Mean on X Axis'
 names(merged)[3]<-'Time Body Acceleration Mean on Y Axis'
@@ -85,6 +90,7 @@ names(merged)[13]<-'Time Body Gravity Std on Z Axis'
 
 attach(merged)
 
+#5. Creating an independent tidy data set with the average of each variable for each activity and each subject. 
 #reshaping the data so that it shows the mean for all the variables for each activity and subject
 aggdata <-aggregate(merged, by=list(activity_name,subject),FUN=mean, na.rm=TRUE)
 
@@ -92,6 +98,7 @@ aggdata <-aggregate(merged, by=list(activity_name,subject),FUN=mean, na.rm=TRUE)
 names(aggdata)[1]<-'Activity_name'
 names(aggdata)[2]<-'Subject'
 
+#6. Selecting the required columns for final dataset and creating it.
 #selecting columns to display in the final data set
 col<-c(1:2,4:15)
 
