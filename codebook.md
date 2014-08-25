@@ -34,18 +34,20 @@ After setting the source directory for the files, read into tables the data loca
 - x_test.txt
 - y_test.txt
 
+Read all the tables using read.table function. Filtered the mean and standard deviationcolumns by looking up the column names in the features.txt file. 
 
 
 ### Section 2. Combining the data sets.
-Assign column names and merge to create one data set. 
+Assign column names and merge to create one data set. Combined the columns of similar data sets first and then merged rows of activity and subject. 
 
 ### Section 3. Reading and merging the activity labels table so as to have descriptive names for activities in the final data set.
+Read the activity labels data set and merged it with the combined test and train dataset so as to associate descriptive names for the activities.
 
 
 ### Section 4. Renaming Variables accordingly.
-
+Assigning descriptive names to the variables.
 
 ### Section 5. Creating an independent tidy data set with the average of each variable for each activity and each subject. 
+Finally created an independent tidy data set with the average of each variable for each activity and each subject using the aggregate function. Filtered and renamed columns accordingly.
+Write.table function was used to create the tidy dataset. 
 
-
-### Section 6. Selecting the required columns for final dataset and creating it.

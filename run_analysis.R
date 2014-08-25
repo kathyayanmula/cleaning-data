@@ -98,7 +98,6 @@ aggdata <-aggregate(merged, by=list(activity_name,subject),FUN=mean, na.rm=TRUE)
 names(aggdata)[1]<-'Activity_name'
 names(aggdata)[2]<-'Subject'
 
-#6. Selecting the required columns for final dataset and creating it.
 #selecting columns to display in the final data set
 col<-c(1:2,4:15)
 
